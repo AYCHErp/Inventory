@@ -839,7 +839,7 @@ BEGIN
 
 
         INSERT INTO @temp_stock_details(tran_type, store_name, item_code, unit_name, quantity, price)
-        SELECT tran_type, store_name, item_code, unit_name, quantity, rate * quantity
+        SELECT tran_type, store_name, item_code, unit_name, quantity, rate
         FROM @details;
 
         IF EXISTS
@@ -1384,8 +1384,8 @@ GO
 CREATE VIEW inventory.transfer_search_view
 AS
 SELECT
-	finance.transaction_master.book,
 	finance.transaction_master.transaction_master_id AS tran_id,
+	finance.transaction_master.book,
 	finance.transaction_master.transaction_code AS tran_code,
 	SUM(inventory.checkout_details.price * inventory.checkout_details.quantity) AS amount,
 	finance.transaction_master.value_date,
